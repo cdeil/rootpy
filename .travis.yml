@@ -1,0 +1,19 @@
+language: python
+
+python:
+  - "2.7"
+
+install:
+  # Install a ROOT binary that we custom-built in a 32-bit Ubuntu VM
+  - time wget https://github.com/downloads/cdeil/travis_test/root_v5.34.02.Linux-Ubuntu32-gcc4.6_v02.tar.gz
+  - time tar zxf root_v5.34.02.Linux-Ubuntu32-gcc4.6_v02.tar.gz
+  - source root_v5.34.02.Linux-Ubuntu32-gcc4.6/bin/thisroot.sh
+  - echo "PATH = $PATH"
+  - echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
+
+script:
+  - time root -l -q
+  - time python -c 'import ROOT'
+  - time python -c 'import rootpy'
+  - time python -c 'import rootpy.types'
+  - time nosetests

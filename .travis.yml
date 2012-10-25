@@ -4,6 +4,10 @@ python:
   - "2.7"
 
 install:
+  # Use system python, not virtualenv, because building the dependencies from source takes too long
+  - deactivate # the virtualenv
+  - time sudo apt-get install python-numpy
+
   # Install a ROOT binary that we custom-built in a 32-bit Ubuntu VM
   - time wget https://github.com/downloads/cdeil/travis_test/root_v5.34.02.Linux-Ubuntu32-gcc4.6_v02.tar.gz
   - time tar zxf root_v5.34.02.Linux-Ubuntu32-gcc4.6_v02.tar.gz
@@ -12,8 +16,11 @@ install:
   - echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
 
 script:
+  # Check if root and rootpy are properly installed
   - time root -l -q
   - time python -c 'import ROOT'
   - time python -c 'import rootpy'
   - time python -c 'import rootpy.types'
-  - time nosetests
+  # Now run the actual tests
+  - time python examples/root2array/tree_to_array.py
+  #- time nosetests

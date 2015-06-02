@@ -31,3 +31,4 @@ ls -la /dev/shm
 # Now run the actual tests (from the installed version, not the local build dir)
 time make install-user
 time make test-installed
+time make test-examples

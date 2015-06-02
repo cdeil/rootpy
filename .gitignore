@@ -20,6 +20,7 @@ temp/*
 .project
 .pydevproject
 .settings
+.idea
 .coverage
 coverage
 ez_setup.py
